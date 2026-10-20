@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t('elig_title') }}{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container container-narrow">
+    <div class="section-header">
+      <div class="section-tag">{{ t('portal_title') }}</div>
+      <h1 class="section-title">{{ t('elig_title') }}</h1>
+      <p class="section-desc">{{ t('elig_subtitle') }}</p>
+    </div>
+
+    <!-- Error Alert if validation failed -->
+    {% if error %}
+      <div class="form-error-alert" role="alert">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span><strong>{{ error }}</strong> Please check your entry and submit again.</span>
+      </div>
+    {% endif %}
+
+    <!-- Privacy Notice Card -->
+    <div class="privacy-notice-box" role="note">
+      <i class="fa-solid fa-user-shield privacy-notice-icon"></i>
+      <div>
+        <strong>Privacy & Security Guarantee:</strong> {{ t('elig_privacy_badge') }}
+        This portal never requires or stores your Aadhaar number, Voter ID (EPIC), or official identity documents.
+      </div>
+    </div>
+
+    <!-- Interactive Form -->
+    <div class="form-card">
+      <form action="{{ url_for('check_eligibility') }}" method="POST" id="eligibilityForm" novalidate>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+        <!-- 1. Date of Birth -->
+        <div class="form-group">
+          <label for="dob" class="form-label">
+            <i class="fa-regular fa-calendar" style="color: #ea580c; margin-right: 0.35rem;"></i>
+            {{ t('field_dob_label') }} <span style="color: #dc2626;">*</span>
+          </label>
+          <input 
+            type="date" 
+            id="dob" 
+            name="dob" 
+            class="form-control" 
+            required 
+            aria-describedby="dobHelp"
+            value="{% if form_data and form_data.dob %}{{ form_data.dob }}{% endif %}"
+          >
+          <span class="form-hint" id="dobHelp">
+            {{ t('field_dob_hint') }}
+          </span>
+        </div>
+
+        <!-- 2. Country / Jurisdiction -->
+        <div class="form-group">
+          <label for="country" class="form-label">
+            <i class="fa-solid fa-earth-americas" style="color: #0f2b5c; margin-right: 0.35rem;"></i>
+            {{ t('field_country_label') }}
+          </label>
+          <input 
+            type="text" 
+            id="country" 
+            name="country" 
+            class="form-control" 
+            value="{{ t('field_country_val') }}" 
+            readonly 
+            style="background-color: #f1f5f9; cursor: not-allowed;"
+          >
+          <span class="form-hint">Default jurisdiction for the Indian Electoral Roll under the Constitution of India.</span>
+        </div>
+
+        <!-- 3. Indian Citizenship Confirmation -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fa-solid fa-flag" style="color: #15803d; margin-right: 0.35rem;"></i>
+            {{ t('field_citizenship_label') }} <span style="color: #dc2626;">*</span>
+          </label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="citizenship" value="yes" {% if not form_data or form_data.citizenship == 'yes' %}checked{% endif %}>
+              <span>Yes, I am a citizen of India</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="citizenship" value="no" {% if form_data and form_data.citizenship == 'no' %}checked{% endif %}>
+              <span>No / Other nationality</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 4. Ordinary Residence / Constituency -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fa-solid fa-house-chimney" style="color: #0f2b5c; margin-right: 0.35rem;"></i>
+            {{ t('field_residence_label') }} <span style="color: #dc2626;">*</span>
+          </label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="residence" value="yes" {% if not form_data or form_data.residence == 'yes' %}checked{% endif %}>
+              <span>Yes, I am ordinarily resident in the constituency where I wish to register</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="residence" value="no" {% if form_data and form_data.residence == 'no' %}checked{% endif %}>
+              <span>No, I do not reside at that address</span>
+            </label>
+          </div>
+          <span class="form-hint">{{ t('field_residence_hint') }}</span>
+        </div>
+
+        <!-- 5. Sound Mind & Not Disqualified -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fa-solid fa-scale-unbalanced" style="color: #ea580c; margin-right: 0.35rem;"></i>
+            {{ t('field_disqualified_label') }} <span style="color: #dc2626;">*</span>
+          </label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="not_disqualified" value="yes" {% if not form_data or form_data.not_disqualified == 'yes' %}checked{% endif %}>
+              <span>Yes, I confirm I am not disqualified under Section 16 of the RPA 1950</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="not_disqualified" value="no" {% if form_data and form_data.not_disqualified == 'no' %}checked{% endif %}>
+              <span>No / Not sure</span>
+            </label>
+          </div>
+          <span class="form-hint">{{ t('field_disqualified_hint') }}</span>
+        </div>
+
+        <!-- Submit & Clear Actions -->
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem;">
+          <button type="submit" class="btn btn-primary" id="btnSubmitEligibility" style="flex: 1;">
+            <i class="fa-solid fa-calculator"></i> {{ t('btn_check_eligibility') }}
+          </button>
+          <button type="reset" class="btn btn-secondary" id="btnResetEligibility">
+            <i class="fa-solid fa-rotate-left"></i> {{ t('btn_reset') }}
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Explanatory Box on Qualifying Dates -->
+    <div style="margin-top: 2.5rem; background: #ffffff; border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1.5rem;">
+      <h3 style="font-size: 1.1rem; color: var(--color-primary); font-weight: 700; margin-bottom: 0.75rem;">
+        <i class="fa-solid fa-calendar-days" style="color: #ea580c; margin-right: 0.5rem;"></i>
+        Understanding the 4 Statutory Qualifying Dates
+      </h3>
+      <p style="font-size: 0.925rem; color: var(--color-text-muted); line-height: 1.6; margin-bottom: 0.75rem;">
+        Under Indian Election Law (RPA 1950, Section 14b amended in 2022), you no longer have to wait an entire year to become eligible. The Election Commission of India recognizes <strong>January 1, April 1, July 1, and October 1</strong> as qualifying dates.
+      </p>
+      <p style="font-size: 0.9rem; color: var(--color-text-light);">
+        Citizens who turn 18 in any of these four quarters are eligible to enroll, with advance applications accepted in the quarter before your 18th birthday.
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t('services_title') }}{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Verified Gateways</div>
+      <h1 class="section-title">{{ t('services_title') }}</h1>
+      <p class="section-desc">{{ t('services_subtitle') }}</p>
+    </div>
+
+    <!-- Security & Civic Guarantee Notice -->
+    <div class="privacy-notice-box" style="margin-bottom: 2.5rem;" role="note">
+      <i class="fa-solid fa-shield-halved privacy-notice-icon"></i>
+      <div>
+        <strong>Verified External Official Resources:</strong> {{ t('services_notice') }}
+        This portal directs you exclusively to authentic Indian election platforms ending in <code>.gov.in</code>. We never ask for your passwords, OTPs, or voter registration credentials.
+      </div>
+    </div>
+
+    <!-- Official Service Cards Grid -->
+    <div class="services-grid">
+      
+      <!-- Service 1: ECI Voters' Service Portal -->
+      <div class="service-card">
+        <span class="service-official-badge">
+          <i class="fa-solid fa-certificate"></i> Official Central Portal
+        </span>
+        <h3 class="service-title">ECI Voters' Services Portal</h3>
+        <p class="service-desc">
+          The unified national platform launched by the Election Commission of India for all online citizen electoral services. File Form 6 (New Voter), Form 6A (Overseas), Form 7 (Objections), and Form 8 (Corrections).
+        </p>
+        <div style="font-size: 0.85rem; color: var(--color-text-light); margin-bottom: 1.25rem;">
+          <code>https://voters.eci.gov.in/</code>
+        </div>
+        <a href="https://voters.eci.gov.in/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          Open Portal <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+      </div>
+
+      <!-- Service 2: Electoral Roll Search -->
+      <div class="service-card">
+        <span class="service-official-badge">
+          <i class="fa-solid fa-magnifying-glass"></i> Voter List Search
+        </span>
+        <h3 class="service-title">Electoral Roll Search Engine</h3>
+        <p class="service-desc">
+          Search and verify your name in the nationwide electoral roll. Check polling station details, Booth Level Officer (BLO) contacts, Part number, and Serial number in your constituency.
+        </p>
+        <div style="font-size: 0.85rem; color: var(--color-text-light); margin-bottom: 1.25rem;">
+          <code>https://electoralsearch.eci.gov.in/</code>
+        </div>
+        <a href="https://electoralsearch.eci.gov.in/" target="_blank" rel="noopener noreferrer" class="btn btn-saffron">
+          Search Your Name <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+      </div>
+
+      <!-- Service 3: Election Commission of India Main Portal -->
+      <div class="service-card">
+        <span class="service-official-badge">
+          <i class="fa-solid fa-landmark"></i> Constitutional Authority
+        </span>
+        <h3 class="service-title">Election Commission of India (ECI)</h3>
+        <p class="service-desc">
+          The official website of the constitutional body responsible for administering elections across India. Access press releases, election schedules, manuals, legal compendiums, and statutory notifications.
+        </p>
+        <div style="font-size: 0.85rem; color: var(--color-text-light); margin-bottom: 1.25rem;">
+          <code>https://www.eci.gov.in/</code>
+        </div>
+        <a href="https://www.eci.gov.in/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+          Visit ECI.gov.in <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+      </div>
+
+      <!-- Service 4: Voter Helpline Mobile App -->
+      <div class="service-card">
+        <span class="service-official-badge">
+          <i class="fa-solid fa-mobile-screen"></i> Official Mobile App
+        </span>
+        <h3 class="service-title">Voter Helpline App (Android & iOS)</h3>
+        <p class="service-desc">
+          The flagship mobile app created by the Election Commission of India. Submit applications, download digital e-EPIC cards, verify polling booths, and track submissions on your smartphone.
+        </p>
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: auto;">
+          <a href="https://play.google.com/store/apps/details?id=com.eci.citizen" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="flex: 1; font-size: 0.85rem; padding: 0.6rem 0.75rem;">
+            <i class="fa-brands fa-google-play"></i> Google Play
+          </a>
+          <a href="https://apps.apple.com/in/app/voter-helpline/id1456535004" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="flex: 1; font-size: 0.85rem; padding: 0.6rem 0.75rem;">
+            <i class="fa-brands fa-apple"></i> App Store
+          </a>
+        </div>
+      </div>
+
+      <!-- Service 5: National Contact Centre Helpline -->
+      <div class="service-card">
+        <span class="service-official-badge" style="background-color: #fef3c7; color: #b45309; border-color: #fde68a;">
+          <i class="fa-solid fa-phone"></i> Toll-Free Hotline
+        </span>
+        <h3 class="service-title">Toll-Free Helpline: 1950</h3>
+        <p class="service-desc">
+          Citizens across India can dial toll-free number <strong>1950</strong> (prefix your State STD code for state call centre) to resolve electoral roll queries, check registration status, or connect with election officials.
+        </p>
+        <div style="margin-top: auto;">
+          <a href="tel:1950" class="btn btn-primary" style="width: 100%;">
+            <i class="fa-solid fa-phone"></i> Dial 1950 (Toll-Free)
+          </a>
+        </div>
+      </div>
+
+      <!-- Service 6: Track Application Status -->
+      <div class="service-card">
+        <span class="service-official-badge">
+          <i class="fa-solid fa-list-check"></i> Application Tracker
+        </span>
+        <h3 class="service-title">Track Application Status</h3>
+        <p class="service-desc">
+          Already submitted Form 6 or Form 8? Track the real-time status of your application from BLO field verification to Electoral Registration Officer approval using your Reference Number.
+        </p>
+        <div style="font-size: 0.85rem; color: var(--color-text-light); margin-bottom: 1.25rem;">
+          <code>https://voters.eci.gov.in/track-application</code>
+        </div>
+        <a href="https://voters.eci.gov.in/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+          Track on ECI Portal <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock %}

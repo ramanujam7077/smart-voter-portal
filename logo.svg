@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none">
+  <!-- Rounded Base Badge -->
+  <rect width="48" height="48" rx="12" fill="#0F2B5C"/>
+  
+  <!-- Subtle Tri-color Accent Bar at Top -->
+  <rect x="10" y="8" width="8" height="3" rx="1.5" fill="#FF7722"/>
+  <rect x="20" y="8" width="8" height="3" rx="1.5" fill="#FFFFFF"/>
+  <rect x="30" y="8" width="8" height="3" rx="1.5" fill="#138808"/>
+  
+  <!-- Ballot Box Outer -->
+  <path d="M12 18H36L34 38H14L12 18Z" fill="#1E3A8A" stroke="#3B82F6" stroke-width="1.5" stroke-linejoin="round"/>
+  
+  <!-- Ballot Slot -->
+  <rect x="18" y="16" width="12" height="3" rx="1.5" fill="#0F2B5C"/>
+  
+  <!-- Checkmark / Paper Slip with Vote Stamp -->
+  <path d="M24 13V25" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M19 28L23 32L30 23" stroke="#22C55E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

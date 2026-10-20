@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="{{ current_lang }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ t('portal_title') }}{% endblock %} | {{ t('portal_subtitle') }}</title>
+  <meta name="description" content="A comprehensive civic-tech platform guiding first-time voters and citizens in India on voter eligibility, the 4 statutory qualifying dates, Form 6 registration, and official ECI services.">
+  <meta name="keywords" content="voter eligibility, first time voter, Indian election, Form 6, ECI, voters service portal, qualifying dates, electoral roll search">
+  <meta name="theme-color" content="#0F2B5C">
+
+  <!-- Google Fonts: Inter & Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=2.0">
+</head>
+<body>
+
+  <!-- Top Civic Notice & Language Switcher Bar -->
+  <aside class="top-notice-bar" aria-label="Official Disclaimer & Language Bar">
+    <div class="container top-notice-inner">
+      <div>
+        <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+        <span>Unofficial Educational Initiative • For official voter registration visit: </span>
+        <a href="https://voters.eci.gov.in/" target="_blank" rel="noopener noreferrer" class="official-link-tag">
+          voters.eci.gov.in <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem;"></i>
+        </a>
+      </div>
+
+      <div>
+        <!-- Language Switcher: Toggle between English and Tamil -->
+        {% if current_lang == 'en' %}
+          <a href="{{ url_for('set_language', lang='ta') }}" class="lang-switch-btn" title="Switch language to தமிழ்">
+            <i class="fa-solid fa-language" aria-hidden="true"></i> தமிழ் (Tamil)
+          </a>
+        {% else %}
+          <a href="{{ url_for('set_language', lang='en') }}" class="lang-switch-btn" title="Switch language to English">
+            <i class="fa-solid fa-language" aria-hidden="true"></i> English
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </aside>
+
+  <!-- Sticky Main Header & Navigation -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="{{ url_for('index') }}" class="brand-logo-wrap" aria-label="{{ t('portal_title') }} Home">
+        <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="Smart Voter Portal Logo" class="brand-logo-img">
+        <div class="brand-text-block">
+          <span class="brand-name">{{ t('portal_title') }}</span>
+          <span class="brand-tagline">{{ t('portal_subtitle') }}</span>
+        </div>
+      </a>
+
+      <!-- Navigation Menu -->
+      <nav aria-label="Main Navigation">
+        <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+          <li><a href="{{ url_for('index') }}" class="nav-link {% if request.endpoint == 'index' %}active{% endif %}"><i class="fa-solid fa-house"></i> {{ t('nav_home') }}</a></li>
+          <li><a href="{{ url_for('registration_guide') }}" class="nav-link {% if request.endpoint == 'registration_guide' %}active{% endif %}"><i class="fa-solid fa-book-open"></i> {{ t('nav_guide') }}</a></li>
+          <li><a href="{{ url_for('official_services') }}" class="nav-link {% if request.endpoint == 'official_services' %}active{% endif %}"><i class="fa-solid fa-building-columns"></i> {{ t('nav_services') }}</a></li>
+          <li><a href="{{ url_for('check_registration') }}" class="nav-link {% if request.endpoint == 'check_registration' %}active{% endif %}"><i class="fa-solid fa-magnifying-glass"></i> {{ t('nav_check_status') }}</a></li>
+          <li><a href="{{ url_for('faq') }}" class="nav-link {% if request.endpoint == 'faq' %}active{% endif %}"><i class="fa-solid fa-circle-question"></i> {{ t('nav_faq') }}</a></li>
+          <li><a href="{{ url_for('feedback') }}" class="nav-link {% if request.endpoint == 'feedback' %}active{% endif %}"><i class="fa-solid fa-comment-dots"></i> {{ t('nav_feedback') }}</a></li>
+          <li><a href="{{ url_for('eligibility') }}" class="nav-cta-btn"><i class="fa-solid fa-calculator"></i> {{ t('nav_eligibility') }}</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Flash Messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="container flash-messages-wrap">
+        {% for category, message in messages %}
+          <div class="flash-alert flash-{{ category }}" role="alert">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>{{ message }}</span>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <!-- Main Content Block -->
+  <main id="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand Summary -->
+        <div>
+          <h3 class="footer-brand-title">{{ t('portal_title') }}</h3>
+          <p class="footer-brand-desc">{{ t('footer_about_desc') }}</p>
+          <div style="margin-top: 1rem; color: #cbd5e1; font-size: 0.85rem;">
+            <p><i class="fa-solid fa-phone" style="color: #ea580c;"></i> Official ECI Helpline: <strong>1950</strong> (Toll Free)</p>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="footer-heading">{{ t('footer_quick_links') }}</h4>
+          <ul class="footer-links">
+            <li><a href="{{ url_for('index') }}">{{ t('nav_home') }}</a></li>
+            <li><a href="{{ url_for('eligibility') }}">{{ t('nav_eligibility') }}</a></li>
+            <li><a href="{{ url_for('registration_guide') }}">{{ t('nav_guide') }}</a></li>
+            <li><a href="{{ url_for('official_services') }}">{{ t('nav_services') }}</a></li>
+            <li><a href="{{ url_for('check_registration') }}">{{ t('nav_check_status') }}</a></li>
+            <li><a href="{{ url_for('faq') }}">{{ t('nav_faq') }}</a></li>
+            <li><a href="{{ url_for('feedback') }}">{{ t('nav_feedback') }}</a></li>
+          </ul>
+        </div>
+
+        <!-- Verified Official Links -->
+        <div>
+          <h4 class="footer-heading">{{ t('footer_official_links') }}</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="https://voters.eci.gov.in/" target="_blank" rel="noopener noreferrer">
+                ECI Voters' Service Portal <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem;"></i>
+              </a>
+            </li>
+            <li>
+              <a href="https://electoralsearch.eci.gov.in/" target="_blank" rel="noopener noreferrer">
+                Search Electoral Roll <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem;"></i>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.eci.gov.in/" target="_blank" rel="noopener noreferrer">
+                Election Commission of India <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem;"></i>
+              </a>
+            </li>
+            <li>
+              <a href="https://play.google.com/store/apps/details?id=com.eci.citizen" target="_blank" rel="noopener noreferrer">
+                Voter Helpline App (Android) <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.75rem;"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Mandatory Legal & Civic Disclaimer -->
+      <div class="footer-disclaimer-card" role="note">
+        <div class="footer-disclaimer-title">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <span>{{ t('footer_disclaimer_title') }}</span>
+        </div>
+        <p class="footer-disclaimer-text">{{ t('footer_disclaimer_text') }}</p>
+      </div>
+
+      <!-- Copyright & Bottom Bar -->
+      <div class="footer-bottom-bar">
+        <p>&copy; {{ current_year }} {{ t('footer_copyright') }}</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript File -->
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

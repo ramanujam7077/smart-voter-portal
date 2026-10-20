@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t('faq_title') }}{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container container-narrow">
+    <div class="section-header">
+      <div class="section-tag">Democracy Knowledge Base</div>
+      <h1 class="section-title">{{ t('faq_title') }}</h1>
+      <p class="section-desc">{{ t('faq_subtitle') }}</p>
+    </div>
+
+    <!-- FAQ Search Bar -->
+    <div class="faq-search-box">
+      <div style="position: relative;">
+        <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 1.25rem; top: 1rem; color: var(--color-text-light);"></i>
+        <input 
+          type="search" 
+          id="faqSearchInput" 
+          class="form-control" 
+          placeholder="{{ t('faq_search_placeholder') }}" 
+          style="padding-left: 3rem; height: 3.2rem; font-size: 1rem;"
+        >
+      </div>
+    </div>
+
+    <!-- Category Filter Tabs -->
+    <div class="faq-filter-tabs">
+      <a href="{{ url_for('faq', category='all') }}" class="faq-tab-btn {% if current_category == 'all' or not current_category %}active{% endif %}">
+        {{ t('faq_filter_all') }}
+      </a>
+      <a href="{{ url_for('faq', category='eligibility') }}" class="faq-tab-btn {% if current_category == 'eligibility' %}active{% endif %}">
+        {{ t('faq_filter_eligibility') }}
+      </a>
+      <a href="{{ url_for('faq', category='registration') }}" class="faq-tab-btn {% if current_category == 'registration' %}active{% endif %}">
+        {{ t('faq_filter_registration') }}
+      </a>
+      <a href="{{ url_for('faq', category='verification') }}" class="faq-tab-btn {% if current_category == 'verification' %}active{% endif %}">
+        {{ t('faq_filter_verification') }}
+      </a>
+      <a href="{{ url_for('faq', category='rules') }}" class="faq-tab-btn {% if current_category == 'rules' %}active{% endif %}">
+        {{ t('faq_filter_rules') }}
+      </a>
+      <a href="{{ url_for('faq', category='services') }}" class="faq-tab-btn {% if current_category == 'services' %}active{% endif %}">
+        {{ t('faq_filter_services') }}
+      </a>
+    </div>
+
+    <!-- No Search Results Box (Initially hidden) -->
+    <div id="faqNoResults" style="display: none; text-align: center; padding: 3rem; background: #ffffff; border: 1px solid var(--color-border); border-radius: var(--radius-md); margin-bottom: 1.5rem;">
+      <i class="fa-solid fa-face-meh" style="font-size: 2.5rem; color: var(--color-text-light); margin-bottom: 0.75rem;"></i>
+      <h3 style="font-size: 1.15rem; color: var(--color-primary); font-weight: 700;">No matching voter questions found</h3>
+      <p style="font-size: 0.9rem; color: var(--color-text-muted); margin-top: 0.25rem;">
+        Try using different keywords or click "All Questions" above.
+      </p>
+    </div>
+
+    <!-- FAQ Accordion List -->
+    <div class="faq-list" id="faqAccordionList">
+      {% for faq in faqs %}
+        <div class="faq-accordion-item {% if loop.first and (current_category == 'all' or not current_category) %}open{% endif %}" data-category="{{ faq.category }}">
+          <button type="button" class="faq-question-btn" aria-expanded="{% if loop.first %}true{% else %}false{% endif %}">
+            <span>
+              <i class="fa-regular fa-circle-question" style="color: #ea580c; margin-right: 0.5rem;"></i>
+              {% if current_lang == 'ta' %}{{ faq.question_ta }}{% else %}{{ faq.question_en }}{% endif %}
+            </span>
+            <i class="fa-solid fa-chevron-down faq-toggle-icon"></i>
+          </button>
+          <div class="faq-answer-panel">
+            <p>{% if current_lang == 'ta' %}{{ faq.answer_ta }}{% else %}{{ faq.answer_en }}{% endif %}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Need More Clarification Banner -->
+    <div style="margin-top: 3rem; background: var(--color-primary-subtle); border: 1px solid #bfdbfe; border-radius: var(--radius-md); padding: 1.75rem; text-align: center;">
+      <h3 style="color: var(--color-primary); font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem;">
+        Still have questions about your voter status?
+      </h3>
+      <p style="font-size: 0.925rem; color: var(--color-text-muted); margin-bottom: 1.25rem;">
+        The Election Commission of India operates a national 24x7 toll-free helpline.
+      </p>
+      <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+        <a href="tel:1950" class="btn btn-primary" style="font-size: 0.9rem; padding: 0.6rem 1.25rem;">
+          <i class="fa-solid fa-phone"></i> Call 1950 (Toll Free)
+        </a>
+        <a href="{{ url_for('feedback') }}" class="btn btn-secondary" style="font-size: 0.9rem; padding: 0.6rem 1.25rem;">
+          <i class="fa-solid fa-comment-dots"></i> Send Us Feedback
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

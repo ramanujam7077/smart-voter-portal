@@ -1,0 +1,236 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t('guide_title') }}{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container container-narrow">
+    <div class="section-header">
+      <div class="section-tag">Step-by-Step Instructions</div>
+      <h1 class="section-title">{{ t('guide_title') }}</h1>
+      <p class="section-desc">{{ t('guide_subtitle') }}</p>
+    </div>
+
+    <!-- Official Banner -->
+    <div style="background-color: var(--color-primary-subtle); border-left: 4px solid var(--color-primary); padding: 1.25rem; border-radius: 0 var(--radius-md) var(--radius-md) 0; margin-bottom: 2.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <strong style="color: var(--color-primary); font-size: 0.95rem;">
+          <i class="fa-solid fa-circle-check" style="color: #15803d; margin-right: 0.4rem;"></i>
+          Official ECI Registration Destination:
+        </strong>
+        <p style="font-size: 0.875rem; color: var(--color-text-muted); margin-top: 0.25rem;">
+          {{ t('guide_official_banner') }}
+        </p>
+      </div>
+      <a href="https://voters.eci.gov.in/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-size: 0.9rem; padding: 0.55rem 1.25rem;">
+        voters.eci.gov.in <i class="fa-solid fa-arrow-up-right-from-square"></i>
+      </a>
+    </div>
+
+    <!-- The 6 Sequential Steps -->
+    <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3rem;">
+      
+      <!-- Step 1 -->
+      <div class="step-card" style="border-left: 4px solid var(--color-saffron);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+          <span class="step-number-badge">Step 1</span>
+          <span style="font-size: 0.8rem; font-weight: 600; color: #ea580c;">Eligibility Verification</span>
+        </div>
+        <h3 class="step-title">Understand Your Eligibility Conditions</h3>
+        <p class="step-desc">
+          Ensure you are a citizen of India, will be at least 18 years old on or before the upcoming statutory qualifying date (Jan 1, Apr 1, Jul 1, Oct 1), and are an ordinary resident in the constituency where you wish to vote.
+        </p>
+        <div style="margin-top: 0.75rem;">
+          <a href="{{ url_for('eligibility') }}" style="font-size: 0.85rem; font-weight: 600; color: var(--color-primary);">
+            <i class="fa-solid fa-calculator"></i> Run our eligibility check to see your qualifying date &rarr;
+          </a>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step-card" style="border-left: 4px solid var(--color-primary);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+          <span class="step-number-badge">Step 2</span>
+          <span style="font-size: 0.8rem; font-weight: 600; color: var(--color-primary);">Form Selection</span>
+        </div>
+        <h3 class="step-title">Identify the Correct Official Form</h3>
+        <p class="step-desc" style="margin-bottom: 0.75rem;">
+          Under the Election Commission of India rules, choose the exact form for your circumstance:
+        </p>
+        <ul style="padding-left: 1.5rem; font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.6;">
+          <li><strong>Form 6:</strong> Application for first-time voters or citizens shifting to a new assembly constituency.</li>
+          <li><strong>Form 6A:</strong> Application for Non-Resident Indians (Overseas Electors holding valid Indian passports).</li>
+          <li><strong>Form 8:</strong> Application for correction of existing details, shifting of residence within constituency, or replacement of EPIC card.</li>
+        </ul>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step-card" style="border-left: 4px solid var(--color-green);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+          <span class="step-number-badge">Step 3</span>
+          <span style="font-size: 0.8rem; font-weight: 600; color: var(--color-green);">Document Readiness</span>
+        </div>
+        <h3 class="step-title">Prepare Required Information and Documents</h3>
+        <p class="step-desc">
+          Scan or photograph clear copies of your documents (PDF/JPG, under 2MB). See the interactive document checklist below to verify what is required vs accepted alternatives.
+        </p>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="step-card" style="border-left: 4px solid var(--color-saffron);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+          <span class="step-number-badge">Step 4</span>
+          <span style="font-size: 0.8rem; font-weight: 600; color: #ea580c;">Online Submission</span>
+        </div>
+        <h3 class="step-title">Submit Application through the Official Service</h3>
+        <p class="step-desc">
+          Go to <a href="https://voters.eci.gov.in/" target="_blank" rel="noopener noreferrer">voters.eci.gov.in</a> or download the official <strong>Voter Helpline App</strong>. Sign in using your mobile number and OTP, complete Form 6, upload your documents, and click <em>Submit</em>.
+        </p>
+        <p class="step-desc" style="margin-top: 0.5rem; color: #b45309; font-weight: 500;">
+          <i class="fa-solid fa-triangle-exclamation"></i> Save and print the <strong>Reference Number</strong> generated upon submission. You will need it to track your application.
+        </p>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="step-card" style="border-left: 4px solid var(--color-primary);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+          <span class="step-number-badge">Step 5</span>
+          <span style="font-size: 0.8rem; font-weight: 600; color: var(--color-primary);">Status Tracking</span>
+        </div>
+        <h3 class="step-title">Follow the Official Status Tracking Process</h3>
+        <p class="step-desc">
+          Your application will be verified by the local Booth Level Officer (BLO) through field verification. You can track progress in real-time on <a href="https://voters.eci.gov.in/" target="_blank" rel="noopener noreferrer">voters.eci.gov.in/track-application</a> using your Reference ID and State.
+        </p>
+      </div>
+
+      <!-- Step 6 -->
+      <div class="step-card" style="border-left: 4px solid var(--color-green);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+          <span class="step-number-badge">Step 6</span>
+          <span style="font-size: 0.8rem; font-weight: 600; color: var(--color-green);">Roll Verification</span>
+        </div>
+        <h3 class="step-title">Verify that Your Name Appears in the Electoral Roll</h3>
+        <p class="step-desc">
+          Once approved, your EPIC number will be generated and your name will be added to the electoral roll. Check your entry online at <a href="https://electoralsearch.eci.gov.in/" target="_blank" rel="noopener noreferrer">electoralsearch.eci.gov.in</a> to confirm your designated polling station.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Interactive Document Preparation Checklist -->
+    <div class="checklist-card" id="documentChecklist">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
+        <div>
+          <h2 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--color-primary); margin-bottom: 0.25rem;">
+            {{ t('doc_checklist_title') }}
+          </h2>
+          <p style="font-size: 0.9rem; color: var(--color-text-muted);">
+            {{ t('doc_checklist_desc') }}
+          </p>
+        </div>
+        <span id="checklistCounter" class="badge badge-neutral" style="background: #e2e8f0; color: #1e293b; font-weight: 700; font-size: 0.85rem; padding: 0.35rem 0.8rem; border-radius: var(--radius-full);">
+          0 items checked
+        </span>
+      </div>
+
+      <!-- Group 1: Age Proof -->
+      <h3 class="checklist-group-title">
+        <i class="fa-regular fa-calendar-check" style="color: #ea580c;"></i>
+        {{ t('doc_age_heading') }}
+      </h3>
+      <div class="doc-items-list">
+        <label class="doc-item-label">
+          <input type="checkbox" class="doc-checklist-checkbox">
+          <span>Birth Certificate issued by Municipal Authority or Registrar of Births</span>
+          <span class="doc-tag-accepted">Accepted</span>
+        </label>
+        <label class="doc-item-label">
+          <input type="checkbox" class="doc-checklist-checkbox">
+          <span>Aadhaar Card (with complete Date of Birth)</span>
+          <span class="doc-tag-accepted">Accepted</span>
+        </label>
+        <label class="doc-item-label">
+          <input type="checkbox" class="doc-checklist-checkbox">
+          <span>PAN Card</span>
+          <span class="doc-tag-accepted">Accepted</span>
+        </label>
+        <label class="doc-item-label">
+          <input type="checkbox" class="doc-checklist-checkbox">
+          <span>Driving Licence</span>
+          <span class="doc-tag-accepted">Accepted</span>
+        </label>
+        <label class="doc-item-label">
+          <input type="checkbox" class="doc-checklist-checkbox">
+          <span>Certificate of Class 10 or 12 issued by CBSE / ICSE / State Board</span>
+          <span class="doc-tag-accepted">Accepted</span>
+        </label>
+        <label class="doc-item-label">
+          <input type="checkbox" class="doc-checklist-checkbox">
+          <span>Indian Passport</span>
+          <span class="doc-tag-accepted">Accepted</span>
+        </label>
+      </div>
+
+      <!-- Group 2: Residence Proof -->
+      <h3 class="checklist-group-title">
+        <i class="fa-solid fa-house-chimney" style="color: var(--color-primary);"></i>
+        {{ t('doc_res_heading') }}
+      </h3>
+      <div class="doc-items-list">
+        <label class="doc-item-label">
+          <input type="checkbox" class="doc-checklist-checkbox">
+          <span>Water / Electricity / Gas Connection Bill (not older than 1 year)</span>
+          <span class="doc-tag-accepted">Accepted</span>
+        </label>
+        <label class="doc-item-label">
+          <input type="checkbox" class="doc-checklist-checkbox">
+          <span>Aadhaar Card with current residential address</span>
+          <span class="doc-tag-accepted">Accepted</span>
+        </label>
+        <label class="doc-item-label">
+          <input type="checkbox" class="doc-checklist-checkbox">
+          <span>Current Passbook of Nationalized / Scheduled Bank or Post Office</span>
+          <span class="doc-tag-accepted">Accepted</span>
+        </label>
+        <label class="doc-item-label">
+          <input type="checkbox" class="doc-checklist-checkbox">
+          <span>Indian Passport with present address</span>
+          <span class="doc-tag-accepted">Accepted</span>
+        </label>
+        <label class="doc-item-label">
+          <input type="checkbox" class="doc-checklist-checkbox">
+          <span>Registered Rent Agreement / Registered Sale Deed</span>
+          <span class="doc-tag-accepted">Accepted</span>
+        </label>
+      </div>
+
+      <!-- Group 3: Photograph -->
+      <h3 class="checklist-group-title">
+        <i class="fa-solid fa-camera" style="color: var(--color-green);"></i>
+        {{ t('doc_photo_heading') }}
+      </h3>
+      <div class="doc-items-list">
+        <label class="doc-item-label">
+          <input type="checkbox" class="doc-checklist-checkbox">
+          <span>Recent passport-size color photograph (showing full front view of face)</span>
+          <span class="doc-tag-required">Mandatory</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Direct Official CTA Box -->
+    <div style="text-align: center; background: #ffffff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-sm);">
+      <h3 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--color-primary); margin-bottom: 0.75rem;">
+        Everything Ready?
+      </h3>
+      <p style="color: var(--color-text-muted); font-size: 1rem; margin-bottom: 1.75rem; max-width: 580px; margin-left: auto; margin-right: auto;">
+        Click below to proceed to the official Voters' Services Portal to create your citizen account and submit Form 6.
+      </p>
+      <a href="https://voters.eci.gov.in/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-size: 1.05rem; padding: 0.8rem 2rem;">
+        Proceed to Official Registration (voters.eci.gov.in) <i class="fa-solid fa-arrow-up-right-from-square"></i>
+      </a>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

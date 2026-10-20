@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t('portal_title') }} - {{ t('hero_title') }}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container hero-content">
+    <div class="hero-pill">
+      <i class="fa-solid fa-scale-balanced" style="color: #ea580c;"></i>
+      <span>{{ t('hero_badge') }}</span>
+    </div>
+
+    <h1 class="hero-title">
+      Your Vote. <span class="highlight">Your Voice.</span> Your Right.
+    </h1>
+
+    <p class="hero-desc">
+      {{ t('hero_description') }}
+    </p>
+
+    <div class="hero-actions">
+      <a href="{{ url_for('eligibility') }}" class="btn btn-primary" id="heroCheckBtn">
+        <i class="fa-solid fa-calculator"></i> {{ t('hero_cta_check') }}
+      </a>
+      <a href="{{ url_for('registration_guide') }}" class="btn btn-secondary" id="heroGuideBtn">
+        <i class="fa-solid fa-book-open"></i> {{ t('hero_cta_guide') }}
+      </a>
+    </div>
+
+    <div class="hero-subtext">
+      <i class="fa-solid fa-shield-halved" style="color: #15803d;"></i>
+      <span>{{ t('hero_notice') }}</span>
+    </div>
+  </div>
+</section>
+
+<!-- Three Core Feature Cards -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">{{ t('features_heading') }}</div>
+      <h2 class="section-title">{{ t('features_subheading') }}</h2>
+    </div>
+
+    <div class="feature-grid">
+      <!-- Card 1: Eligibility Checker -->
+      <div class="feature-card">
+        <div class="feature-icon-box icon-saffron">
+          <i class="fa-solid fa-user-check"></i>
+        </div>
+        <h3 class="feature-card-title">{{ t('card1_title') }}</h3>
+        <p class="feature-card-desc">{{ t('card1_desc') }}</p>
+        <a href="{{ url_for('eligibility') }}" class="feature-card-link" style="color: #ea580c;">
+          {{ t('card1_btn') }} <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <!-- Card 2: Registration Guide -->
+      <div class="feature-card">
+        <div class="feature-icon-box icon-blue">
+          <i class="fa-solid fa-list-check"></i>
+        </div>
+        <h3 class="feature-card-title">{{ t('card2_title') }}</h3>
+        <p class="feature-card-desc">{{ t('card2_desc') }}</p>
+        <a href="{{ url_for('registration_guide') }}" class="feature-card-link" style="color: #0f2b5c;">
+          {{ t('card2_btn') }} <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <!-- Card 3: Official Election Services -->
+      <div class="feature-card">
+        <div class="feature-icon-box icon-green">
+          <i class="fa-solid fa-building-columns"></i>
+        </div>
+        <h3 class="feature-card-title">{{ t('card3_title') }}</h3>
+        <p class="feature-card-desc">{{ t('card3_desc') }}</p>
+        <a href="{{ url_for('official_services') }}" class="feature-card-link" style="color: #15803d;">
+          {{ t('card3_btn') }} <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Simple Step-by-Step Overview -->
+<section class="section steps-section" id="steps">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Step-by-Step Roadmap</div>
+      <h2 class="section-title">{{ t('steps_heading') }}</h2>
+      <p class="section-desc">Follow these four clear phases to enroll and exercise your fundamental franchise with confidence.</p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <span class="step-number-badge">Step 1</span>
+        <h3 class="step-title">{{ t('step1_title') }}</h3>
+        <p class="step-desc">{{ t('step1_desc') }}</p>
+      </div>
+
+      <div class="step-card">
+        <span class="step-number-badge">Step 2</span>
+        <h3 class="step-title">{{ t('step2_title') }}</h3>
+        <p class="step-desc">{{ t('step2_desc') }}</p>
+      </div>
+
+      <div class="step-card">
+        <span class="step-number-badge">Step 3</span>
+        <h3 class="step-title">{{ t('step3_title') }}</h3>
+        <p class="step-desc">{{ t('step3_desc') }}</p>
+      </div>
+
+      <div class="step-card">
+        <span class="step-number-badge">Step 4</span>
+        <h3 class="step-title">{{ t('step4_title') }}</h3>
+        <p class="step-desc">{{ t('step4_desc') }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Voter Awareness Section -->
+<section class="section" id="awareness">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">Democracy Awareness</div>
+      <h2 class="section-title">{{ t('awareness_heading') }}</h2>
+      <p class="section-desc">{{ t('awareness_subheading') }}</p>
+    </div>
+
+    <div class="awareness-grid">
+      <div class="awareness-card">
+        <h3 class="awareness-title"><i class="fa-regular fa-calendar-check" style="color: #ea580c; margin-right: 0.5rem;"></i>{{ t('fact1_title') }}</h3>
+        <p class="awareness-desc">{{ t('fact1_desc') }}</p>
+      </div>
+
+      <div class="awareness-card green-accent">
+        <h3 class="awareness-title"><i class="fa-solid fa-id-card-clip" style="color: #15803d; margin-right: 0.5rem;"></i>{{ t('fact2_title') }}</h3>
+        <p class="awareness-desc">{{ t('fact2_desc') }}</p>
+      </div>
+
+      <div class="awareness-card navy-accent">
+        <h3 class="awareness-title"><i class="fa-solid fa-clock-rotate-left" style="color: #0f2b5c; margin-right: 0.5rem;"></i>{{ t('fact3_title') }}</h3>
+        <p class="awareness-desc">{{ t('fact3_desc') }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Section Preview -->
+<section class="section" style="background-color: #ffffff; border-top: 1px solid var(--color-border);" id="faq-preview">
+  <div class="container container-narrow">
+    <div class="section-header">
+      <div class="section-tag">Instant Clarity</div>
+      <h2 class="section-title">{{ t('faq_title') }}</h2>
+      <p class="section-desc">{{ t('faq_subtitle') }}</p>
+    </div>
+
+    <div class="faq-list">
+      {% for faq in faqs %}
+        <div class="faq-accordion-item {% if loop.first %}open{% endif %}">
+          <button type="button" class="faq-question-btn" aria-expanded="{% if loop.first %}true{% else %}false{% endif %}">
+            <span>
+              <i class="fa-regular fa-circle-question" style="color: #ea580c; margin-right: 0.5rem;"></i>
+              {% if current_lang == 'ta' %}{{ faq.question_ta }}{% else %}{{ faq.question_en }}{% endif %}
+            </span>
+            <i class="fa-solid fa-chevron-down faq-toggle-icon"></i>
+          </button>
+          <div class="faq-answer-panel">
+            <p>{% if current_lang == 'ta' %}{{ faq.answer_ta }}{% else %}{{ faq.answer_en }}{% endif %}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div style="text-align: center; margin-top: 2rem;">
+      <a href="{{ url_for('faq') }}" class="btn btn-secondary">
+        <i class="fa-solid fa-layer-group"></i> View All Questions & Answers <i class="fa-solid fa-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Bottom Call to Action -->
+<section class="section" style="background: linear-gradient(135deg, #0F2B5C 0%, #1E3A8A 100%); color: #ffffff; text-align: center;">
+  <div class="container">
+    <h2 style="font-family: var(--font-display); font-size: 2.2rem; margin-bottom: 1rem; color: #ffffff;">
+      Ready to Become a Registered Voter?
+    </h2>
+    <p style="max-width: 650px; margin: 0 auto 2rem; color: #cbd5e1; font-size: 1.05rem;">
+      Find out your exact qualifying date in seconds without entering sensitive personal documents or numbers.
+    </p>
+    <a href="{{ url_for('eligibility') }}" class="btn btn-saffron" style="font-size: 1.1rem; padding: 0.85rem 2rem;">
+      <i class="fa-solid fa-arrow-right-to-bracket"></i> Check Your Voter Eligibility Now
+    </a>
+  </div>
+</section>
+{% endblock %}

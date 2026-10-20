@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t('result_title') }}{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container container-narrow">
+    <div class="section-header">
+      <div class="section-tag">{{ t('portal_title') }}</div>
+      <h1 class="section-title">{{ t('result_title') }}</h1>
+      <p class="section-desc">Personalized civic eligibility analysis under Indian Election Law.</p>
+    </div>
+
+    <!-- Result Card -->
+    <div class="result-card">
+      <!-- Status Header -->
+      {% set status_class = 'status-review' %}
+      {% if result.status_code == 'ELIGIBLE_NOW' %}
+        {% set status_class = 'status-eligible' %}
+      {% elif result.status_code == 'ADVANCE_APPLICATION_ELIGIBLE' %}
+        {% set status_class = 'status-advance' %}
+      {% elif result.status_code == 'UNDERAGE' %}
+        {% set status_class = 'status-underage' %}
+      {% endif %}
+
+      <div class="result-header {{ status_class }}">
+        <div class="result-badge">
+          {% if result.status_code == 'ELIGIBLE_NOW' %}
+            <i class="fa-solid fa-circle-check"></i>
+          {% elif result.status_code == 'ADVANCE_APPLICATION_ELIGIBLE' %}
+            <i class="fa-solid fa-clock"></i>
+          {% elif result.status_code == 'UNDERAGE' %}
+            <i class="fa-solid fa-hourglass-half"></i>
+          {% else %}
+            <i class="fa-solid fa-circle-info"></i>
+          {% endif %}
+          <span>{{ result.qualifying_status }}</span>
+        </div>
+
+        <h2 class="result-headline">{{ result.headline }}</h2>
+        <p class="result-summary">{{ result.summary }}</p>
+      </div>
+
+      <!-- Result Body -->
+      <div class="result-body">
+        <!-- Assessment Metrics Grid -->
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">Current Calculated Age</span>
+            <span class="info-val">{{ result.age_summary }}</span>
+          </div>
+          {% if result.effective_qualifying_date %}
+          <div class="info-item">
+            <span class="info-label">{{ t('result_qualifying_date') }}</span>
+            <span class="info-val" style="color: #ea580c;">{{ result.effective_qualifying_date }}</span>
+          </div>
+          {% endif %}
+          <div class="info-item">
+            <span class="info-label">Statutory Standard</span>
+            <span class="info-val">RPA 1950 Sec 14(b)</span>
+          </div>
+        </div>
+
+        <!-- Crucial Official Warning / Disclaimer -->
+        <div class="crucial-disclaimer-box" role="alert">
+          <p>
+            <i class="fa-solid fa-triangle-exclamation" style="font-size: 1.1rem; margin-right: 0.4rem;"></i>
+            <strong>{{ t('result_disclaimer') }}</strong>
+          </p>
+        </div>
+
+        <!-- Recommended Action Steps -->
+        {% if result.recommendations %}
+          <h3 class="recs-title">Recommended Civic Next Steps:</h3>
+          <ul class="recs-list">
+            {% for rec in result.recommendations %}
+              <li>{{ rec }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        <!-- Navigation Buttons -->
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem;">
+          {% if result.action_button %}
+            <a href="{{ result.action_button.url }}" class="btn btn-primary" id="resultActionBtn">
+              <i class="fa-solid fa-arrow-right"></i> {{ result.action_button.text }}
+            </a>
+          {% endif %}
+          <a href="{{ url_for('eligibility') }}" class="btn btn-secondary" id="btnRecheck">
+            <i class="fa-solid fa-rotate-left"></i> {{ t('result_btn_recheck') }}
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Official Portal Direct Card -->
+    <div style="margin-top: 2rem; background: #ffffff; border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h4 style="color: var(--color-primary); font-weight: 700; margin-bottom: 0.35rem;">
+          Ready to submit your official Form 6 application?
+        </h4>
+        <p style="font-size: 0.875rem; color: var(--color-text-muted);">
+          Visit the official ECI Voters' Service Portal with your documents ready.
+        </p>
+      </div>
+      <a href="https://voters.eci.gov.in/" target="_blank" rel="noopener noreferrer" class="btn btn-saffron" style="font-size: 0.9rem; padding: 0.6rem 1.25rem;">
+        Open ECI Portal <i class="fa-solid fa-arrow-up-right-from-square"></i>
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}

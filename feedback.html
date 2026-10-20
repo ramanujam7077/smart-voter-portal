@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t('feedback_title') }}{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container container-narrow">
+    <div class="section-header">
+      <div class="section-tag">Citizen Insights</div>
+      <h1 class="section-title">{{ t('feedback_title') }}</h1>
+      <p class="section-desc">{{ t('feedback_subtitle') }}</p>
+    </div>
+
+    <!-- Privacy Note -->
+    <div class="privacy-notice-box" role="note">
+      <i class="fa-solid fa-user-shield privacy-notice-icon"></i>
+      <div>
+        <strong>100% Anonymous:</strong> This feedback form does not ask for your name, phone number, email address, or IP. We use this aggregated feedback solely to improve the clarity of our educational guides.
+      </div>
+    </div>
+
+    <div class="form-card">
+      <form action="{{ url_for('feedback') }}" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+        <!-- 1. Helpful Rating -->
+        <div class="form-group">
+          <label class="form-label">{{ t('feedback_helpful_label') }} <span style="color: #dc2626;">*</span></label>
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="helpful" value="yes" checked>
+              <span>{{ t('feedback_opt_yes') }}</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="helpful" value="somewhat">
+              <span>{{ t('feedback_opt_somewhat') }}</span>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="helpful" value="no">
+              <span>{{ t('feedback_opt_no') }}</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 2. Category -->
+        <div class="form-group">
+          <label for="category" class="form-label">{{ t('feedback_category_label') }}</label>
+          <select id="category" name="category" class="form-control">
+            <option value="eligibility">Voter Eligibility Calculator</option>
+            <option value="guide">Registration Guide (Form 6 / Form 8)</option>
+            <option value="verification">Electoral Roll Search Guidance</option>
+            <option value="faq">FAQs & Information Accuracy</option>
+            <option value="general" selected>General Usability & Navigation</option>
+          </select>
+        </div>
+
+        <!-- 3. Comments -->
+        <div class="form-group">
+          <label for="comment" class="form-label">{{ t('feedback_comment_label') }}</label>
+          <textarea 
+            id="comment" 
+            name="comment" 
+            class="form-control" 
+            rows="4" 
+            maxlength="1000"
+            placeholder="Tell us what you found helpful or what could be made clearer for first-time voters..."
+          ></textarea>
+          <span class="form-hint">Maximum 1,000 characters. Please do not submit personal identity information.</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%;">
+          <i class="fa-solid fa-paper-plane"></i> {{ t('feedback_submit') }}
+        </button>
+      </form>
+    </div>
+
+    <div style="margin-top: 2rem; text-align: center; color: var(--color-text-light); font-size: 0.85rem;">
+      <i class="fa-solid fa-chart-simple" style="color: var(--color-green);"></i>
+      <span>{{ feedback_count }} anonymous feedback submissions received from citizens to date.</span>
+    </div>
+  </div>
+</section>
+{% endblock %}
